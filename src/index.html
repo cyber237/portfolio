@@ -3,361 +3,116 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nintai Dick Nunyi - Software Engineer</title>
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Nintai Dick Nunyi - Portfolio Coming Soon</title>
+    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    <script
+      src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"
+      defer
+    ></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      [x-cloak] {
+        display: none !important;
+      }
+    </style>
   </head>
   <body
-    x-data="portfolioData"
+    x-data="maintenancePage()"
     x-cloak
-    class="bg-gray-50 text-gray-700 dark:bg-gray-900 dark:text-gray-300 transition-colors duration-300"
+    class="bg-white text-gray-800 transition-colors duration-300"
   >
-    <!-- Header & Navigation -->
-    <header
-      class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800"
-    >
-      <nav
-        class="container mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <a
-          href="#"
-          class="text-xl font-bold text-gray-900 dark:text-white"
-          x-text="name"
-        ></a>
-        <div class="flex items-center space-x-6">
-          <div class="hidden md:flex items-center space-x-8">
-            <template x-for="link in navLinks" :key="link.name">
-              <a
-                :href="link.href"
-                class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
-                x-text="link.name"
-              ></a>
-            </template>
-          </div>
-          <!-- Theme Switcher -->
-          <button
-            @click="toggleTheme()"
-            x-data="Theme"
-            class="text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400 focus:outline-none transition-colors cursor-pointer"
+    <main class="min-h-screen flex items-center justify-center text-center p-6">
+      <div>
+        <!-- Icon -->
+        <div class="w-16 h-16 mx-auto mb-6 text-teal-500">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
           >
-            <svg
-              x-show="!isDarkMode"
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-              ></path>
-            </svg>
-            <svg
-              x-show="isDarkMode"
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-              ></path>
-            </svg>
-          </button>
-          <div class="md:hidden">
-            <button
-              @click="isMobileMenuOpen = !isMobileMenuOpen"
-              class="text-gray-800 dark:text-white focus:outline-none"
-            >
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16m-7 6h7"
-                ></path>
-              </svg>
-            </button>
-          </div>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.472-2.472a3.375 3.375 0 00-4.773-4.773L4.75 12a3.375 3.375 0 004.773 4.773z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 6.75h5.25l-1.125-1.125"
+            />
+          </svg>
         </div>
-      </nav>
-      <!-- Mobile Menu -->
-      <div
-        x-show="isMobileMenuOpen"
-        @click.away="isMobileMenuOpen = false"
-        class="md:hidden px-6 pb-4 border-t border-gray-200 dark:border-gray-800"
-      >
-        <template x-for="link in navLinks" :key="link.name">
-          <a
-            :href="link.href"
-            @click="isMobileMenuOpen = false"
-            class="block py-2 text-gray-600 dark:text-gray-300 hover:text-teal-600 dark:hover:text-teal-400"
-            x-text="link.name"
-          ></a>
-        </template>
-      </div>
-    </header>
 
-    <main class="container mx-auto px-6">
-      <!-- Hero Section -->
-      <section id="hero" class="py-24 md:py-32 flex items-center">
-        <div class="w-full text-center">
-          <h1
-            class="text-5xl md:text-7xl font-extrabold text-gray-900 dark:text-white leading-tight mb-4"
-          >
-            Hi, I'm
-            <span
-              class="bg-gradient-to-r from-teal-500 to-cyan-500 bg-clip-text text-transparent"
-              x-text="name"
-            ></span>
-          </h1>
-          <h2
-            class="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 font-medium mb-8"
-            x-text="title"
-          ></h2>
-          <p
-            class="max-w-3xl mx-auto text-lg text-gray-600 dark:text-gray-400 mb-10"
-            x-text="summary"
-          ></p>
-          <div class="flex justify-center items-center space-x-4">
-            <a
-              :href="'mailto:' + email"
-              class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >Get In Touch</a
-            >
-            <a
-              href="#projects"
-              class="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >View My Work</a
-            >
-          </div>
-        </div>
-      </section>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">
+          New Site Under Construction
+        </h1>
+        <p class="max-w-xl mx-auto text-lg text-gray-600 mb-8">
+          My new portfolio is being crafted with care. I'm working on something
+          special and will be back online soon.
+        </p>
 
-      <!-- About Me Section -->
-      <section id="about" class="py-20">
-        <div class="grid md:grid-cols-5 gap-12 items-center">
-          <div class="md:col-span-2 flex justify-center">
-            <div
-              class="w-64 h-64 md:w-80 md:h-80 rounded-2xl bg-gray-200 dark:bg-gray-800 p-4 shadow-xl rotate-[-3deg] hover:rotate-0 transition-transform duration-300"
-            >
-              <img
-                :src="profilePicture"
-                :alt="name"
-                class="w-full h-full object-cover rounded-lg"
-              />
-            </div>
-          </div>
-          <div class="md:col-span-3">
-            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              About Me
-            </h2>
-            <p class="text-lg mb-4">
-              Hello! I'm Nintai, a software engineer based in Douala, Cameroon.
-              With a strong background in backend-heavy full-stack development
-              and DevOps, I thrive on building efficient, scalable, and
-              maintainable applications.
-            </p>
-            <p class="text-lg mb-4">
-              Throughout my career, I've led multiple projects, honing my
-              analytical and collaboration skills. I'm driven by the challenge
-              of finding innovative solutions to everyday problems and enjoy
-              working in a team-oriented environment. My goal is to leverage
-              technology to create impactful and reliable software.
-            </p>
-            <p class="text-lg">
-              When I'm not coding, I enjoy watching movies, playing chess, and
-              traveling.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Skills Section -->
-      <section id="skills" class="py-20">
-        <h2
-          class="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center"
-        >
-          Technical Skills
-        </h2>
-        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
-          <template x-for="category in skillCategories" :key="category.name">
-            <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-              <h3
-                class="text-xl font-semibold text-gray-800 dark:text-white mb-4"
-                x-text="category.name"
-              ></h3>
-              <div class="flex flex-wrap gap-2">
-                <template x-for="skill in category.skills" :key="skill">
-                  <span
-                    class="bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 text-sm font-medium px-3 py-1 rounded-full"
-                    x-text="skill"
-                  ></span>
-                </template>
-              </div>
-            </div>
-          </template>
-        </div>
-      </section>
-
-      <!-- Experience Section -->
-      <section id="experience" class="py-20">
-        <h2
-          class="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center"
-        >
-          Professional Experience
-        </h2>
-        <div
-          class="max-w-3xl mx-auto relative border-l-2 border-gray-200 dark:border-gray-700 pl-10"
-        >
-          <template x-for="(job, index) in experience" :key="index">
-            <div class="mb-10">
-              <div
-                class="absolute -left-[11px] w-5 h-5 bg-teal-500 border-4 border-white dark:border-gray-900 rounded-full"
-              ></div>
-              <time
-                class="mb-1 text-sm font-normal leading-none text-gray-500 dark:text-gray-400"
-                x-text="job.period"
-              ></time>
-              <h3
-                class="text-lg font-semibold text-gray-900 dark:text-white"
-                x-text="job.title"
-              ></h3>
-              <p
-                class="text-base font-normal text-gray-600 dark:text-gray-400"
-                x-text="job.company"
-              ></p>
-            </div>
-          </template>
-        </div>
-      </section>
-
-      <!-- Projects Section -->
-      <section id="projects" class="py-20">
-        <h2
-          class="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center"
-        >
-          Featured Projects
-        </h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <template x-for="(project, index) in projects" :key="index">
-            <a
-              :href="project.link"
-              class="block bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
-            >
-              <img
-                :src="project.image"
-                :alt="project.title"
-                class="w-full h-48 object-cover"
-              />
-              <div class="p-6">
-                <h3
-                  class="text-xl font-bold text-gray-900 dark:text-white mb-2"
-                  x-text="project.title"
-                ></h3>
-                <p
-                  class="text-gray-700 dark:text-gray-400 mb-4 text-sm"
-                  x-text="project.description"
-                ></p>
-                <div class="flex flex-wrap gap-2">
-                  <template x-for="tag in project.tags" :key="tag">
-                    <span
-                      class="bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 text-xs font-medium px-2.5 py-1 rounded-full"
-                      x-text="tag"
-                    ></span>
-                  </template>
-                </div>
-              </div>
-            </a>
-          </template>
-          <!-- View All Projects Card -->
-          <a
-            href="/projects"
-            class="flex flex-col items-center justify-center text-center bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 p-6"
-          >
-            <div
-              class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg w-full h-full flex flex-col items-center justify-center hover:border-teal-500 dark:hover:border-teal-500 transition-colors"
-            >
-              <h3
-                class="text-xl font-bold text-gray-900 dark:text-white mb-2 mt-5"
-              >
-                View All Projects
-              </h3>
-              <p class="text-gray-700 dark:text-gray-400 mb-4 text-sm">
-                See the full list of my projects
-              </p>
-              <svg
-                class="w-12 h-12 text-gray-400 dark:text-gray-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                ></path>
-              </svg>
-            </div>
-          </a>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer
-      class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700"
-    >
-      <div class="container mx-auto px-6 py-8">
-        <div class="flex flex-col items-center justify-center">
-          <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Let's Connect
-          </h2>
-          <p class="max-w-md text-center text-gray-600 dark:text-gray-400 mb-6">
-            I'm currently available for freelance opportunities. Feel free to
-            reach out via email or connect with me on my social platforms.
+        <div>
+          <p class="text-sm text-gray-500 mb-2">
+            In the meantime, you can reach me here:
           </p>
           <a
             :href="'mailto:' + email"
-            class="text-lg font-medium text-teal-600 dark:text-teal-400 hover:underline mb-6"
+            class="text-lg font-semibold text-teal-600 hover:underline"
             x-text="email"
           ></a>
-          <div class="flex space-x-6 mb-8">
-            <template x-for="social in socialLinks" :key="social.name">
-              <a
-                :href="social.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-gray-500 hover:text-teal-600 dark:text-gray-400 dark:hover:text-teal-400 transition-colors"
-                :aria-label="social.name"
-                x-html="social.icon"
-              ></a>
-            </template>
-          </div>
-          <p class="text-gray-500 dark:text-gray-400 text-sm">
-            &copy; 2024 <span x-text="name"></span>. All Rights Reserved.
-          </p>
+        </div>
+
+        <!-- Social Links -->
+        <div class="mt-8 flex justify-center space-x-6">
+          <template x-for="social in socialLinks" :key="social.name">
+            <a
+              :href="social.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-400 hover:text-gray-600 transition-colors"
+              :aria-label="social.name"
+            >
+              <div x-html="social.icon" class="w-6 h-6"></div>
+            </a>
+          </template>
         </div>
       </div>
-    </footer>
-    <script src="./assets/js/index.js" type="module"></script>
+    </main>
+
+    <script>
+      function maintenancePage() {
+        return {
+          name: "Nintai Dick Nunyi",
+          email: "nintaidick67@gmail.com",
+          socialLinks: [
+            {
+              name: "GitHub",
+              url: "https://github.com/cyber237",
+              icon: '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.492.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>',
+            },
+            {
+              name: "LinkedIn",
+              url: "https://linkedin.com/in/nintai-dick-769430185",
+              icon: '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>',
+            },
+            {
+              name: "Upwork",
+              url: "https://www.upwork.com/freelancers/~01b4370a11ad793174",
+              icon: '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAReSURBVHhe7ZtPaBxlHcd/Z3a3bLu729YkFhM1aQ2xVEFF8SBF8aAHD156U49eCgq2eCm1i5ceCh48eBE8eBE8eBFEUNoihZcK9qC5YmMT2LTb3WzWbWd2Z+b7c93sbrubzU7S/X7IZmfed36/z8z7zMzvzM5/y8DAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA-"/>',
+            },
+          ],
+        };
+      }
+    </script>
   </body>
 </html>
