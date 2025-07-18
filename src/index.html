@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nintai Dick Nunyi - Portfolio Coming Soon</title>
-    <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <script
       src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"
       defer
@@ -26,9 +26,48 @@
   </head>
   <body
     x-data="maintenancePage()"
+    x-init="initTheme()"
+    :class="{ 'dark': isDarkMode }"
     x-cloak
-    class="bg-white text-gray-800 transition-colors duration-300"
+    class="bg-white dark:bg-black text-gray-800 dark:text-gray-200 transition-colors duration-300"
   >
+    <!-- Theme switcher -->
+    <div class="absolute top-4 right-4">
+      <button
+        @click="toggleTheme()"
+        class="text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white focus:outline-none transition-colors p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+      >
+        <svg
+          x-show="!isDarkMode"
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+          ></path>
+        </svg>
+        <svg
+          x-show="isDarkMode"
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
     <main class="min-h-screen flex items-center justify-center text-center p-6">
       <div>
         <!-- Icon -->
@@ -53,21 +92,25 @@
           </svg>
         </div>
 
-        <h1 class="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">
+        <h1
+          class="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4"
+        >
           New Site Under Construction
         </h1>
-        <p class="max-w-xl mx-auto text-lg text-gray-600 mb-8">
+        <p
+          class="max-w-xl mx-auto text-lg text-gray-600 dark:text-gray-400 mb-8"
+        >
           My new portfolio is being crafted with care. I'm working on something
           special and will be back online soon.
         </p>
 
         <div>
-          <p class="text-sm text-gray-500 mb-2">
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">
             In the meantime, you can reach me here:
           </p>
           <a
             :href="'mailto:' + email"
-            class="text-lg font-semibold text-teal-600 hover:underline"
+            class="text-lg font-semibold text-teal-600 dark:text-teal-400 hover:underline"
             x-text="email"
           ></a>
         </div>
@@ -79,7 +122,7 @@
               :href="social.url"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-gray-400 hover:text-gray-600 transition-colors"
+              class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
               :aria-label="social.name"
             >
               <div x-html="social.icon" class="w-6 h-6"></div>
@@ -92,8 +135,34 @@
     <script>
       function maintenancePage() {
         return {
+          isDarkMode: true,
           name: "Nintai Dick Nunyi",
           email: "nintaidick67@gmail.com",
+
+          setTheme() {
+            if (this.isDarkMode) {
+              document.documentElement.classList.add("dark");
+            } else {
+              document.documentElement.classList.remove("dark");
+            }
+          },
+
+          initTheme() {
+            if (localStorage.theme === "light") {
+              this.isDarkMode = false;
+            } else {
+              this.isDarkMode = true;
+              localStorage.theme = "dark";
+            }
+            this.setTheme();
+          },
+
+          toggleTheme() {
+            this.isDarkMode = !this.isDarkMode;
+            localStorage.theme = this.isDarkMode ? "dark" : "light";
+            this.setTheme();
+          },
+
           socialLinks: [
             {
               name: "GitHub",
@@ -102,13 +171,13 @@
             },
             {
               name: "LinkedIn",
-              url: "https://linkedin.com/in/nintai-dick-769430185",
+              url: "https://www.linkedin.com/in/nintai-dick-7b9430185/",
               icon: '<svg class="w-full h-full" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>',
             },
             {
               name: "Upwork",
               url: "https://www.upwork.com/freelancers/~01b4370a11ad793174",
-              icon: '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAReSURBVHhe7ZtPaBxlHcd/Z3a3bLu729YkFhM1aQ2xVEFF8SBF8aAHD156U49eCgq2eCm1i5ceCh48eBE8eBE8eBFEUNoihZcK9qC5YmMT2LTb3WzWbWd2Z+b7c93sbrubzU7S/X7IZmfed36/z8z7zMzvzM5/y8DAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA-"/>',
+              icon: '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAACVElEQVR4nO2Tz2sTQRTHBw8V9aCIP7Aioqj4J3Rnd7sz/YWgBy/Bi+4m2ZDazkQs9uTBoiDoQdCDCKInPXlvIdGGpEnToLGGnRGFgKUiCCXFX+AvTCOTZpJJWpCEeNIH77Jv5n2+831vAfgffwp3xphaTXizuXYmbxyp1Wf1q6CdsKNaWaQ/ri8318JZ46SsO4+1UmTq0Ma/BrCjWjmUMS6q9ci8sZMyfIMyXCAMfyYML1CO7tC8eaAtQCCuv5e10Zd4P+XoHeW4vCYZ/jLKrWMtA+wYLBOvX5vgvi7KEJcNhXrK8TPK0UcVMuL1H2wNENXExRT1rNNKo+wYH9peOZ87sZkw/LAORndbGrItAJWmqFhtUKKedVS9M5bp2UQYWq5C3gI7JgHwQzPATZunJCCYgPnANPzW6DV6vt7iiFdVBXwHUpkTgyXnhbVNPRhKmg9qgJQ+6c72nquolhZwfHvNq3MDWwlDn6r1NyCQ0At1lfrC+aS5p6I+ZQ5LuEg3Y/nEd8LRfXWQhOHxC/nBLfW1RZOKgFsgnDWHxHY0DFNpbIv1TBiLUqE6RGWYPwhDi5SjX4p9RfJqoLtyKZg2JpyYttK8MXI2w5m+vYq/BemvaLzef0A4XoowDBu8C2WtHjepz/un4VfnifbTH4dFNw3v+R75uuQZ/1zvYcrwymoTFB1h5j7C8XXCcU74TTl6Shi6En5t7QDthJs2Lin+XwadjmBST9QAHjrecYA/Dpck4Gx+cFdnu5fBBvGv1Pa70+F6fbuDM3COMnyNcBzoOAD8s/EbrwcHCCX25OMAAAAASUVORK5CYII=" alt="external-upwork-a-global-freelancing-platform-where-professionals-connect-and-collaborate-remotely-logo-shadow-tal-revivo">',
             },
           ],
         };
